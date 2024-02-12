@@ -14,6 +14,10 @@ public class LogicScript : MonoBehaviour
 
     public GameObject gameOverScreen;
 
+    public bool gameStarted = false;
+
+    public GameObject gameStartScreen;
+
     [ContextMenu("Increase Score")]
     public void addScore(int scoreToAdd)
     {
@@ -36,8 +40,17 @@ public class LogicScript : MonoBehaviour
     public void gameOver()
     {
         gameOverScreen.SetActive(true);
+        gameStarted = false;
 
     }
+
+
+    public void startGame()
+    {
+        gameStartScreen.SetActive(false);
+        gameStarted = true;
+    }
+
 
 
 

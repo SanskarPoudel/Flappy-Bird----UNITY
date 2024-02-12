@@ -5,28 +5,29 @@ using UnityEngine;
 
 public class BirdScript : MonoBehaviour
 {
-
     public Rigidbody2D myRigidbody;
-
     public float flapStrength;
-
     public LogicScript logic;
-
     public bool birdIsAlive = true;
 
     void Start()
     {
         logic = GameObject.FindGameObjectWithTag("Logic").GetComponent<LogicScript>();
-
+        myRigidbody.gravityScale = 0;
+        myRigidbody.isKinematic = true;
     }
 
-    // Update is called once per frame
     void Update()
     {
-
-        if (Input.GetKeyDown(KeyCode.Space) == true && birdIsAlive)
+        if (logic.gameStarted && birdIsAlive)
         {
-            myRigidbody.velocity = Vector2.up * flapStrength;
+            myRigidbody.gravityScale = 4;
+            myRigidbody.isKinematic = false;
+
+            if (Input.GetMouseButtonDown(0))
+            {
+                myRigidbody.velocity = Vector2.up * flapStrength;
+            }
         }
     }
 
@@ -34,6 +35,7 @@ public class BirdScript : MonoBehaviour
     {
         logic.gameOver();
         birdIsAlive = false;
+        myRigidbody.velocity = Vector2.zero;
+        myRigidbody.isKinematic = true;
     }
-
 }
